@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+	<head>
+		<title>Demo User App </title>
+        <style>
+            div.logout {
+    float: right;
+}
+        </style>
+    </head>
+        <body>
+            <div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
+                Logged in user: <span sec:authentication="name"></span> |
+                Roles: <span sec:authentication="principal.authorities"></span>
+                <div>
+                    <form action="#" th:action="@{/logout}" method="post">
+                        <input type="submit" value="Logout" />
+                    </form>
+                </div>
+            </div>
+            <div th:fragment="homepage" class="homepage" sec:authorize="!isAuthenticated()">
+                <h2> Welcome to User Demo application</h2>
+                Existing User Sign in here <a th:href="@{/signin}">Sign In</a><br>
+                New User Sign up here  <a th:href="@{/signup}">Sign Up</a>
+            </div>
+          
+        </body>
+    </html>

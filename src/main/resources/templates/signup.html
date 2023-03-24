@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+
+<head>
+	<title>Register</title>
+	<style>
+		.error {
+			color: red;
+		}
+	</style>
+</head>
+
+<body>
+	<h1>Register New User</h1>
+	<p th:if="${errorMessage}"
+	th:text="${errorMessage}"></p>
+
+	<form th:object="${formData}" th:action="@{/register}" method="post">
+		<div>
+			<label for="firstName">First name</label>
+			<input id="firstName" type="text" th:field="*{firstName}">
+			<p th:if="${#fields.hasErrors('firstName')}"
+				th:text="${#strings.listJoin(#fields.errors('firstName'), ', ')}"></p>
+		</div>
+		<div>
+			<label for="lastName">Last name</label>
+			<input id="lastName" type="text" th:field="*{lastName}">
+			<p th:if="${#fields.hasErrors('lastName')}"
+				th:text="${#strings.listJoin(#fields.errors('lastName'), ', ')}"></p>
+		</div>
+		<div>
+			<label for="email">Email</label>
+			<input id="email" type="text" th:field="*{email}">
+			<p th:if="${#fields.hasErrors('email')}" th:text="${#strings.listJoin(#fields.errors('email'), ', ')}"></p>
+		</div>
+		<div>
+			<label for="password">Password</label>
+			<input id="password" type="password" th:field="*{password}">
+			<p th:if="${#fields.hasErrors('password')}"
+				th:text="${#strings.listJoin(#fields.errors('password'), ', ')}"></p>
+		</div>
+		<div>
+			<label for="birthDate">Birth date</label>
+			<input id="birthDate" type="date" th:field="*{birthDate}">
+			<p th:if="${#fields.hasErrors('birthDate')}"
+				th:text="${#strings.listJoin(#fields.errors('birthDate'), ', ')}"></p>
+		</div>
+
+		<button type="submit">Create user</button>
+	</form>
+</body>
+
+</html>

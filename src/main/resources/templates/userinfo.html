@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org">
+	<head>
+		<style>
+			.error {
+				color: red;
+			}
+		</style>
+		<title>User Info</title>
+	</head>
+	<body>
+		<h2>
+			<div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
+				Logged in user: <span sec:authentication="name"></span> |
+				Roles: <span sec:authentication="principal.authorities"></span>
+				</div>
+
+				<h3>[[${message}]]</h3>
+			</h2>
+
+		<h1>Update your details</h1>
+		<br>
+		<form th:object="${formData}"
+		th:action="@{/updateUserInfo}"
+		method="post"> 
+	  <div>
+		  <label for="firstName">First name</label>
+		  <input id="firstName" type="text"
+				 th:field="*{firstName}"> 
+		  <p th:if="${#fields.hasErrors('firstName')}"
+			 th:text="${#strings.listJoin(#fields.errors('firstName'), ', ')}"></p> 
+	  </div>
+	  <div>
+		  <label for="lastName">Last name</label>
+		  <input id="lastName" type="text"
+				 th:field="*{lastName}">
+		  <p th:if="${#fields.hasErrors('lastName')}"
+			 th:text="${#strings.listJoin(#fields.errors('lastName'), ', ')}"></p>
+	  </div>
+	  <div>
+		<label for="email">Email</label>
+		<input id="email" type="text" readonly
+			   th:field="*{email}">
+		</div>
+		<div>
+			
+			<input id="userId" type="hidden" 
+				   th:field="*{userId}">
+			</div>
+	<div>
+		<label for="password">Password</label>
+		<input id="password" type="password"
+			   th:field="*{password}">
+		<p th:if="${#fields.hasErrors('password')}"
+		   th:text="${#strings.listJoin(#fields.errors('password'), ', ')}"></p>
+	</div>
+	<div>
+		<label for="birthDate">Birth date</label>
+		<input id="birthDate" type="date"
+			   th:field="*{birthDate}">
+		<p th:if="${#fields.hasErrors('birthDate')}"
+		   th:text="${#strings.listJoin(#fields.errors('birthDate'), ', ')}"></p>
+	</div>
+
+	  <button type="submit">Update my details</button>
+	</form>
+	  <br>
+	  <br>
+	  <div th:fragment="logout" class="logout" sec:authorize="isAuthenticated()">
+		<div>
+			<form action="#" th:action="@{/logout}" method="post">
+				<input type="submit" value="Logout" />
+			</form>
+		</div>
+	</div>
+ 
+	</body>
+</html>
